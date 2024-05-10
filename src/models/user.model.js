@@ -78,7 +78,31 @@ class User {
                     email: updatedUserData.email
                 });
         });
-    }    
+    }  
+    
+    static getTotalUsersCount(cb) {
+        const countUsersQuery = `SELECT COUNT(*) AS totalUsersCount FROM users`;
+        
+        db.query(countUsersQuery, (err, result) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            cb(null, result[0].totalUsersCount);
+        });
+    }
+
+    static getUsersList(cb) {
+        const getUsersQuery = `SELECT * FROM users`;
+        db.query(getUsersQuery, (err, users) => {
+            if (err) {
+                cb(err, null);
+                return;
+            }
+            console.log("users ===", users);
+            cb(null, users);
+        });
+    }
 }
 
 module.exports = User;

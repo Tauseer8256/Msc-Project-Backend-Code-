@@ -30,3 +30,39 @@ exports.updateUser = (req, res) => {
         }
     });
 };
+
+// Assuming you have a User model with appropriate methods for interacting with the database
+
+exports.getTotalUsersCount = (req, res) => {
+    // Get the total count of users from the database
+    User.getTotalUsersCount((err, count) => {
+        if (err) {
+            res.status(500).send({
+                status: "error",
+                message: err.message
+            });
+        } else {
+            res.status(200).send({
+                status: "success",
+                totalUsersCount: count
+            });
+        }
+    });
+};
+
+exports.getUsersList = (req, res) => {
+    // Retrieve the list of users from the database
+    User.getUsersList((err, users) => {
+        if (err) {
+            res.status(500).send({
+                status: "error",
+                message: err.message
+            });
+        } else {
+            res.status(200).send({
+                status: "success",
+                users: users
+            });
+        }
+    });
+};
