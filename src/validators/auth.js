@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const validatorHandler = require('../middlewares/validatorHandler');
+const Joi = require('joi'); // [1]
+const validatorHandler = require('../middlewares/validatorHandler'); // load validator file
 
 const signup = (req, res, next) => {
     const schema = Joi.object().keys({
@@ -51,3 +51,5 @@ module.exports = {
     signup,
     signin
 };
+
+// [1] "joi." npm, 2024. [Online]. Available: https://www.npmjs.com/package/joi. [Accessed: April 21, 2024].

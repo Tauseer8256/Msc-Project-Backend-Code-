@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 const { hash: hashPassword } = require('../utils/password');
 
-exports.updateUser = (req, res) => {
+exports.updateUser = (req, res) => { // function to update user
     const { userId } = req.params; // Assuming userId is the identifier for the user to update
     const { firstname, lastname, language, email, password } = req.body;
     

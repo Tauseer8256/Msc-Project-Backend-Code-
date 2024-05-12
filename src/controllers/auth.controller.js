@@ -2,9 +2,9 @@ const User = require('../models/user.model');
 const { hash: hashPassword, compare: comparePassword } = require('../utils/password');
 const { generate: generateToken } = require('../utils/token');
 
-exports.signup = (req, res) => {
+exports.signup = (req, res) => { // function to signup user on website
     const { firstname, lastname, language, email, password } = req.body;
-    const hashedPassword = hashPassword(password.trim());
+    const hashedPassword = hashPassword(password.trim()); // generate plain text password hash
 
     const user = new User(firstname.trim(), lastname.trim(), language.trim(), email.trim(), hashedPassword);
 
@@ -15,7 +15,7 @@ exports.signup = (req, res) => {
                 message: err.message
             });
         } else {
-            const token = generateToken(data.id);
+            const token = generateToken(data.id); // generate jwt token for auth
             res.status(201).send({
                 status: "success",
                 data: {
@@ -27,7 +27,7 @@ exports.signup = (req, res) => {
     });
 };
 
-exports.signin = (req, res) => {
+exports.signin = (req, res) => { // function to signin user on website
     const { email, password } = req.body;
     User.findByEmail(email.trim(), (err, data) => {
         if (err) {
@@ -45,8 +45,8 @@ exports.signin = (req, res) => {
             return;
         }
         if (data) {
-            if (comparePassword(password.trim(), data.password)) {
-                const token = generateToken(data.id);
+            if (comparePassword(password.trim(), data.password)) {  // function to compare user password during signin
+                const token = generateToken(data.id); // generate jwt token for auth
                 res.status(200).send({
                     status: 'success',
                     data: {

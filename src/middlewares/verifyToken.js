@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // [1]
 const { JWT_SECRET_KEY } = require('../utils/secrets');
 
 const verifyToken = (req, res, next) => {
@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'Authorization token is missing' });
     }
 
-    jwt.verify(token, JWT_SECRET_KEY, (err, decoded) => {
+    jwt.verify(token, JWT_SECRET_KEY, (err, decoded) => { // calling verify function for token
         if (err) {
             return res.status(401).json({ message: 'Invalid or expired token' });
         }
@@ -20,3 +20,5 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = verifyToken;
+
+// [1] "jsonwebtoken." npm, 2024. [Online]. Available: https://www.npmjs.com/package/jsonwebtoken. [Accessed: April 21, 2024].

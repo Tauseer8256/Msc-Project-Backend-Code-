@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // [1]
 const { JWT_SECRET_KEY } = require('../utils/secrets');
 
 const generate = (id) => jwt.sign({ id }, JWT_SECRET_KEY, { expiresIn: '1d'});
@@ -20,3 +20,4 @@ module.exports = {
     generate,
     decode
 }
+// [1] "jsonwebtoken." npm, 2024. [Online]. Available: https://www.npmjs.com/package/jsonwebtoken. [Accessed: April 21, 2024].

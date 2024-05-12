@@ -1,14 +1,11 @@
-const { OpenAI } = require("openai");
+const { OpenAI } = require("openai"); // [1]
 const { OPENAI_API_KEY } = require('../utils/secrets');
-const openai = new OpenAI({
+const openai = new OpenAI({ // This code initializes an instance of the OpenAI API client using an API key.
     apiKey: OPENAI_API_KEY,
 });
 
 exports.openAi = async (req, res) => {
   try {
-    console.log("asldnlsak ===", req.body.prompt);
-    console.log("asldnlsak ===", req.params);
-
     const lang = req.params.language.toLowerCase();
     langArr = {
       "en": "English",
@@ -19,27 +16,13 @@ exports.openAi = async (req, res) => {
       "cn": "Chinese"
     }
     const language = langArr[lang];
-    // console.log("asldnlsak ===1", lang );
-    // let temp = {
-    //   "index": 0,
-    //   "message": {
-    //     "role": "assistant",
-    //     "content": "Royal Nawab is located at Hoover Building 7, Western Ave, London, Perivale, Greenford UB6 8DB, UK. Response 1 "
-    //   },
-    //   "logprobs": null,
-    //   "finish_reason": "stop",
-    //   "language": lang,
-    //   "success": true
-    // }
-    // res.status(200).json(temp);
-
     const prompt = req.body.prompt + ` please provide answer related to london only and response should be in ${language} language`;
-    console.log("prompt ===", prompt);
+    console.log("prompt ===", prompt, OPENAI_API_KEY);
     const completion = await openai.chat.completions.create({
     //   messages: [{ role: "system", content: "You are a helpful assistant." }],
       messages: [{ role: "system", content: prompt }],
-      // model: "gpt-4-turbo",
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-turbo",
+      // model: "gpt-3.5-turbo",
     });
 
     res.status(200).json(completion.choices[0]);
@@ -48,3 +31,5 @@ exports.openAi = async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 };
+
+// [1] "openai." npm, 2024. [Online]. Available: https://www.npmjs.com/package/openai. [Accessed: April 21, 2024]..

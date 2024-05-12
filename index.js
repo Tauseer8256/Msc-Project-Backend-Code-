@@ -16,10 +16,29 @@ app.use('/api/user', userRoute);
 app.use('/api/ai', aiRoute);
 
 app.get('/', (req, res) => {
+    const os = require('os');
+
+    // Get the network interfaces
+    const networkInterfaces = os.networkInterfaces();
+
+    // Iterate over each network interface
+    let ip = undefined;
+    Object.keys(networkInterfaces).forEach((interfaceName) => {
+        const interfaces = networkInterfaces[interfaceName];
+        interfaces.forEach((interfaceInfo) => {
+            // Filter out IPv4 addresses and non-internal addresses
+            if (interfaceInfo.family === 'IPv4' && !interfaceInfo.internal) {
+                console.log(`IP Address: ${interfaceInfo.address}`);
+                ip = interfaceInfo.address;
+            }
+        });
+    });
+
     res.status(200).send({
         status: "success",
         data: {
-            message: "APP is working"
+            message: "APP is working",
+            ip
         }
     });
 });

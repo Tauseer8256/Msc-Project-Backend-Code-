@@ -1,5 +1,5 @@
 
-const validatorHandler = (req, res, next, schema) => {
+const validatorHandler = (req, res, next, schema) => { // function to validate schema
     const { error } = schema.validate(req.body);
 
     if (error) {
