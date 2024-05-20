@@ -11,9 +11,10 @@ exports.openAi = async (req, res) => {
       "en": "English",
       "gb": "English",
       "ur": "Urdu",
-      "hi": "Hindi",
+      "in": "Hindi",
       "bn": "Bangla",
-      "cn": "Chinese"
+      "cn": "Chinese",
+      "pk": "Urdu",
     }
     const language = langArr[lang];
     const prompt = req.body.prompt + ` please provide answer related to london only and response should be in ${language} language`;
@@ -21,8 +22,9 @@ exports.openAi = async (req, res) => {
     const completion = await openai.chat.completions.create({
     //   messages: [{ role: "system", content: "You are a helpful assistant." }],
       messages: [{ role: "system", content: prompt }],
-      model: "gpt-4-turbo",
+      // model: "gpt-4-turbo",
       // model: "gpt-3.5-turbo",
+      model: "gpt-4o"
     });
 
     res.status(200).json(completion.choices[0]);
