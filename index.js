@@ -51,13 +51,6 @@ app.use((err, req, res, next) => {
     next();
 });
 
-// In Express.js
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "https://e846-203-215-165-236.ngrok-free.app");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
-
 module.exports = app;
 
 const PORT = process.env.PORT || 8000;
